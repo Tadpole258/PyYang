@@ -1,0 +1,13 @@
+### Example user template template
+### Example user template
+
+# Ignore The Directions
+test/
+docs/
+start/
+
+# Ignore The Files
+*.ini
+cache/_test_.py
+cache/mains.py
+

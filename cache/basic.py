@@ -200,22 +200,142 @@ class Mysql(object):
             conn.close()
 
 
+###############################################################
+################### NO.4, Sort Algorithms #####################
+###############################################################
+class Sorts():
+    def bubble_sort(self, args: list) -> list:
+        """
+        Pure implementation of bubble sort algorithm in Python
+        :param args: some mutable ordered collection with heterogeneous
+        comparable items inside
+        :return: the same collection ordered by ascending
+        """
+        sets = args.copy()
+        length = len(sets)
+        for i in range(length - 1):
+            swapped = False
+            for j in range(length - 1 - i):
+                if sets[j] > sets[j + 1]:
+                    swapped = True
+                    sets[j], sets[j + 1] = sets[j + 1], sets[j]
+            if not swapped:
+                # Stop iteration if the collection is sorted.
+                # 如果发现整个排序过程中没有交换，提前结束
+                break
+        return sets
 
 
-def bubble_sort(bs_list):
-    """
-    # 冒泡排序算法
-    :param bs_list: 参数，list
-    :return bs_list: 升序排序,list
-    """
-    n = len(bs_list)
-    exchange = False
-    for i in range(n-1, 0, -1):
-        for j in range(0, i):
-            if bs_list[j] > bs_list[j+1]:
-                bs_list[j], bs_list[j+1] = bs_list[j+1], bs_list[j]
-                exchange = True
-        # 如果发现整个排序过程中没有交换，提前结束
-        if not exchange:
-            break
-    return bs_list
+    def quick_sort(self, args: list) -> list:
+        """
+        A pure Python implementation of quick sort algorithm
+        :param args: a mutable collection of comparable items
+        :return: the same collection ordered by ascending
+        Examples:
+        >>> quick_sort([0, 5, 3, 2, 2])
+        [0, 2, 2, 3, 5]
+        >>> quick_sort([])
+        []
+        >>> quick_sort([-2, 5, 0, -45])
+        [-45, -2, 0, 5]
+        """
+        if len(args) < 2:
+            return args
+        pivot = args.pop()  # Use the last element as the first pivot
+        greater: list[int] = []  # All elements greater than pivot
+        lesser: list[int] = []  # All elements less than or equal to pivot
+        for element in args:
+            (greater if element > pivot else lesser).append(element)
+        return self.quick_sort(lesser) + [pivot] + self.quick_sort(greater)
+
+    def select_sort(self, args: list) -> list:
+        """Pure implementation of the selection sort algorithm in Python
+        :param args: some mutable ordered collection with heterogeneous
+        comparable items inside
+        :return: the same collection ordered by ascending
+        Examples:
+        >>> select_sort([0, 5, 3, 2, 2])
+        [0, 2, 2, 3, 5]
+        >>> select_sort([])
+        []
+        >>> select_sort([-2, -5, -45])
+        [-45, -5, -2]
+        """
+        sets = args.copy()
+        length = len(sets)
+        for i in range(length - 1):
+            least = i
+            for k in range(i + 1, length):
+                if sets[k] < sets[least]:
+                    least = k
+            if least != i:
+                sets[least], sets[i] = (sets[i], sets[least])
+        return sets
+
+    def insert_sort(self, args: list) -> list:
+        """A pure Python implementation of the insertion sort algorithm
+        :param args: some mutable ordered collection with heterogeneous
+        comparable items inside
+        :return: the same collection ordered by ascending
+        Examples:
+        >>> insert_sort([0, 5, 3, 2, 2])
+        [0, 2, 2, 3, 5]
+        >>> insert_sort([]) == sorted([])
+        True
+        >>> insert_sort([-2, -5, -45]) == sorted([-2, -5, -45])
+        True
+        >>> insert_sort(['d', 'a', 'b', 'e', 'c']) == sorted(['d', 'a', 'b', 'e', 'c'])
+        True
+        >>> import random
+        >>> collection = random.sample(range(-50, 50), 100)
+        >>> insert_sort(collection) == sorted(collection)
+        True
+        >>> import string
+        >>> collection = random.choices(string.ascii_letters + string.digits, k=100)
+        >>> insert_sort(collection) == sorted(collection)
+        True
+        """
+        sets = args.copy()
+        for insert_index, insert_value in enumerate(sets[1:]):
+            temp_index = insert_index
+            while insert_index >= 0 and insert_value < sets[insert_index]:
+                sets[insert_index + 1] = sets[insert_index]
+                insert_index -= 1
+            if insert_index != temp_index:
+                sets[insert_index + 1] = insert_value
+        return sets
+
+
+    def merge_sort(self, args: list) -> list:
+        """Pure implementation of the merge sort algorithm in Python
+        :param args: some mutable ordered collection with heterogeneous
+        comparable items inside
+        :return: the same collection ordered by ascending
+        Examples:
+        >>> merge_sort([0, 5, 3, 2, 2])
+        [0, 2, 2, 3, 5]
+        >>> merge_sort([])
+        []
+        >>> merge_sort([-2, -5, -45])
+        [-45, -5, -2]
+        """
+
+        def merge(left: list, right: list) -> list:
+            """merge left and right
+            :param left: left collection
+            :param right: right collection
+            :return: merge result
+            """
+
+            def _merge():
+                while left and right:
+                    yield (left if left[0] <= right[0] else right).pop(0)
+                yield from left
+                yield from right
+
+            return list(_merge())
+
+        if len(args) <= 1:
+            return args
+        mid = len(args) // 2
+        return merge(self.merge_sort(args[:mid]), self.merge_sort(args[mid:]))
