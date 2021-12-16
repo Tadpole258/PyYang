@@ -228,40 +228,17 @@ class Sorts(object):
         return sets
 
     @staticmethod
-    def quick_sort(args: list) -> list:
-        """
-        A pure Python implementation of quick sort algorithm
-        :param args: a mutable collection of comparable items
-        :return: the same collection ordered by ascending
-        Examples:
-        >>> quick_sort([0, 5, 3, 2, 2])
-        [0, 2, 2, 3, 5]
-        >>> quick_sort([])
-        []
-        >>> quick_sort([-2, 5, 0, -45])
-        [-45, -2, 0, 5]
-        """
-        if len(args) < 2:
-            return args
-        pivot = args.pop()  # Use the last element as the first pivot
-        greater: list[int] = []  # All elements greater than pivot
-        lesser: list[int] = []  # All elements less than or equal to pivot
-        for element in args:
-            (greater if element > pivot else lesser).append(element)
-        return Sorts.quick_sort(lesser) + [pivot] + Sorts.quick_sort(greater)
-
-    @staticmethod
     def select_sort(args: list) -> list:
         """Pure implementation of the selection sort algorithm in Python
         :param args: some mutable ordered collection with heterogeneous
         comparable items inside
         :return: the same collection ordered by ascending
         Examples:
-        >>> select_sort([0, 5, 3, 2, 2])
+        >>> Sorts.select_sort([0, 5, 3, 2, 2])
         [0, 2, 2, 3, 5]
-        >>> select_sort([])
+        >>> Sorts.select_sort([])
         []
-        >>> select_sort([-2, -5, -45])
+        >>> Sorts.select_sort([-2, -5, -45])
         [-45, -5, -2]
         """
         sets = args.copy()
@@ -282,21 +259,21 @@ class Sorts(object):
         comparable items inside
         :return: the same collection ordered by ascending
         Examples:
-        >>> insert_sort([0, 5, 3, 2, 2])
+        >>> Sorts.insert_sort([0, 5, 3, 2, 2])
         [0, 2, 2, 3, 5]
-        >>> insert_sort([]) == sorted([])
+        >>> Sorts.insert_sort([]) == sorted([])
         True
-        >>> insert_sort([-2, -5, -45]) == sorted([-2, -5, -45])
+        >>> Sorts.insert_sort([-2, -5, -45]) == sorted([-2, -5, -45])
         True
-        >>> insert_sort(['d', 'a', 'b', 'e', 'c']) == sorted(['d', 'a', 'b', 'e', 'c'])
+        >>> Sorts.insert_sort(['d', 'a', 'b', 'e', 'c']) == sorted(['d', 'a', 'b', 'e', 'c'])
         True
         >>> import random
         >>> collection = random.sample(range(-50, 50), 100)
-        >>> insert_sort(collection) == sorted(collection)
+        >>> Sorts.insert_sort(collection) == sorted(collection)
         True
         >>> import string
         >>> collection = random.choices(string.ascii_letters + string.digits, k=100)
-        >>> insert_sort(collection) == sorted(collection)
+        >>> Sorts.insert_sort(collection) == sorted(collection)
         True
         """
         sets = args.copy()
@@ -316,11 +293,11 @@ class Sorts(object):
         comparable items inside
         :return: the same collection ordered by ascending
         Examples:
-        >>> merge_sort([0, 5, 3, 2, 2])
+        >>> Sorts.merge_sort([0, 5, 3, 2, 2])
         [0, 2, 2, 3, 5]
-        >>> merge_sort([])
+        >>> Sorts.merge_sort([])
         []
-        >>> merge_sort([-2, -5, -45])
+        >>> Sorts.merge_sort([-2, -5, -45])
         [-45, -5, -2]
         """
 
@@ -343,3 +320,28 @@ class Sorts(object):
             return args
         mid = len(args) // 2
         return merge(Sorts.merge_sort(args[:mid]), Sorts.merge_sort(args[mid:]))
+
+    @staticmethod
+    def quick_sort(args: list) -> list:
+        """
+        A pure Python implementation of quick sort algorithm
+        :param args: a mutable collection of comparable items
+        :return: the same collection ordered by ascending
+        Examples:
+        >>> Sorts.quick_sort([0, 5, 3, 2, 2])
+        [0, 2, 2, 3, 5]
+        >>> Sorts.quick_sort([])
+        []
+        >>> Sorts.quick_sort([-2, 5, 0, -45])
+        [-45, -2, 0, 5]
+        """
+        if len(args) < 2:
+            return args
+        pivot = args.pop()  # Use the last element as the first pivot
+        # greater: list[int] = []  # All elements greater than pivot
+        greater = []
+        # lesser: list[int] = []  # All elements less than or equal to pivot
+        lesser = []
+        for element in args:
+            (greater if element > pivot else lesser).append(element)
+        return Sorts.quick_sort(lesser) + [pivot] + Sorts.quick_sort(greater)
