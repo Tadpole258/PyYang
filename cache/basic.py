@@ -203,8 +203,10 @@ class Mysql(object):
 ###############################################################
 ################### NO.4, Sort Algorithms #####################
 ###############################################################
-class Sorts():
-    def bubble_sort(self, args: list) -> list:
+
+class Sorts(object):
+    @staticmethod
+    def bubble_sort(args: list) -> list:
         """
         Pure implementation of bubble sort algorithm in Python
         :param args: some mutable ordered collection with heterogeneous
@@ -225,8 +227,8 @@ class Sorts():
                 break
         return sets
 
-
-    def quick_sort(self, args: list) -> list:
+    @staticmethod
+    def quick_sort(args: list) -> list:
         """
         A pure Python implementation of quick sort algorithm
         :param args: a mutable collection of comparable items
@@ -246,9 +248,10 @@ class Sorts():
         lesser: list[int] = []  # All elements less than or equal to pivot
         for element in args:
             (greater if element > pivot else lesser).append(element)
-        return self.quick_sort(lesser) + [pivot] + self.quick_sort(greater)
+        return Sorts.quick_sort(lesser) + [pivot] + Sorts.quick_sort(greater)
 
-    def select_sort(self, args: list) -> list:
+    @staticmethod
+    def select_sort(args: list) -> list:
         """Pure implementation of the selection sort algorithm in Python
         :param args: some mutable ordered collection with heterogeneous
         comparable items inside
@@ -272,7 +275,8 @@ class Sorts():
                 sets[least], sets[i] = (sets[i], sets[least])
         return sets
 
-    def insert_sort(self, args: list) -> list:
+    @staticmethod
+    def insert_sort(args: list) -> list:
         """A pure Python implementation of the insertion sort algorithm
         :param args: some mutable ordered collection with heterogeneous
         comparable items inside
@@ -305,8 +309,8 @@ class Sorts():
                 sets[insert_index + 1] = insert_value
         return sets
 
-
-    def merge_sort(self, args: list) -> list:
+    @staticmethod
+    def merge_sort(args: list) -> list:
         """Pure implementation of the merge sort algorithm in Python
         :param args: some mutable ordered collection with heterogeneous
         comparable items inside
@@ -338,4 +342,4 @@ class Sorts():
         if len(args) <= 1:
             return args
         mid = len(args) // 2
-        return merge(self.merge_sort(args[:mid]), self.merge_sort(args[mid:]))
+        return merge(Sorts.merge_sort(args[:mid]), Sorts.merge_sort(args[mid:]))
