@@ -1,10 +1,10 @@
-### Example user template template
 ### Example user template
 
 # Ignore The Directions
 test/
 docs/
 start/
+algorithms/DeepLearning/
 
 # Ignore The Files
 *.ini
