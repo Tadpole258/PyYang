@@ -10,4 +10,4 @@ algorithms/DeepLearning/
 *.ini
 cache/_test_.py
 cache/mains.py
-
+algorithms/MachineLearning/2.LinearRegression/MLR-data.xlsx
