@@ -22,4 +22,3 @@ parser = configparser.ConfigParser()
 parser.read(op.join(dir_path, 'config.ini'))
 # signal = dict(parser.items('NiceJstDB'))
 database = dict(parser.items('NiceYqDB'))
-

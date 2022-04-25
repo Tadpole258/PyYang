@@ -48,8 +48,10 @@ class Mssql(object):
     """
     Application for sql server
     """
-    def __init__(self, host=database['host'], user=database['user'],
-                 pwd=database['pwd'], db=database['db']):
+    def __init__(self, host=database['host'],
+                 user=database['user'],
+                 pwd=database['pwd'],
+                 db=database['db']):
         # 配置mysql连接
         self.host = host
         self.user = user
@@ -141,8 +143,12 @@ class Mysql(object):
         :return result: 查询结果
         """
         # 数据库配置连接
-        conn = pymysql.connect(host=self.host, user=self.user, password=self.pwd, db=self.db,
-                               port=self.port, charset='utf8')
+        conn = pymysql.connect(host=self.host,
+                               user=self.user,
+                               password=self.pwd,
+                               db=self.db,
+                               port=self.port,
+                               charset='utf8')
         try:
             # 利用pandas直接获取数据
             result = pd.read_sql(sql, conn)
@@ -160,8 +166,12 @@ class Mysql(object):
         :return result: 执行结果
         """
         # 数据库配置连接
-        conn = pymysql.connect(host=self.host, user=self.user, password=self.pwd, db=self.db,
-                               port=self.port, charset='utf8')
+        conn = pymysql.connect(host=self.host,
+                               user=self.user,
+                               password=self.pwd,
+                               db=self.db,
+                               port=self.port,
+                               charset='utf8')
         cursor = conn.cursor() # 连接创建游标
         try:
             # 执行sql语句
@@ -183,8 +193,12 @@ class Mysql(object):
         :return result: 查询结果
         """
         # 数据库配置连接
-        conn = pymysql.connect(host=self.host, user=self.user, password=self.pwd, db=self.db,
-                               port=self.port, charset='utf8')
+        conn = pymysql.connect(host=self.host,
+                               user=self.user,
+                               password=self.pwd,
+                               db=self.db,
+                               port=self.port,
+                               charset='utf8')
         cursor = conn.cursor() # 连接创建游标
         try:
             # 执行sql语句

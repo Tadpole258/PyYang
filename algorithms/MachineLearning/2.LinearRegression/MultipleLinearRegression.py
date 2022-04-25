@@ -23,7 +23,7 @@ def alg_MLR(limit):
 
 
 if __name__ == '__main__':
-    files = r"./MachineLearning/MLR-data.xlsx"
+    files = r"./MLR-data.xlsx"
     data = basic.pd.read_excel(files)
     result = alg_MLR(0.01)
     print(result.summary())
